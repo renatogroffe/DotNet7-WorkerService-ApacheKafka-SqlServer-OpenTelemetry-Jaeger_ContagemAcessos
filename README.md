@@ -1,0 +1,2 @@
+# DotNet7-WorkerService-ApacheKafka-SqlServer-OpenTelemetry-Jaeger_ContagemAcessos
+Exemplo de consumo de mensagens de um tópico do Apache Kafka com dados de contagens de acesso em um Worker Service criado com .NET 7, utilizando ainda SQL Server + Dapper.Contrib para gravação dos dados. Inclui a implementação de tracing distribuído utilizando OpenTelemetry e Jaeger + um Dockerfile para a geração de imagens baseadas em Linux.
