@@ -20,10 +20,6 @@ services:
       - ./BaseContagemKafka.sql:/tmp/BaseContagemKafka.sql
       - ./init-sqlserver.sh:/tmp/init-sqlserver.sh
     command: /bin/bash ./tmp/init-sqlserver.sh
-  redis:
-    image: redis:alpine
-    ports:
-      - "6379:6379"
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
@@ -51,28 +47,3 @@ services:
       - 9000:9000
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
-  contagemredis:
-    image: renatogroffe/apicontagem-dotnet7-opentelemetry-jaeger-redis:1
-    depends_on:
-      - redis
-      - jaeger
-    environment:
-      ConnectionStrings__Redis: redis
-      Jaeger__AgentHost: jaeger
-      Jaeger__AgentPort: 6831
-    ports:
-      - "6100:80"
-  contagemkafka:
-    image: renatogroffe/apicontagem-dotnet7-opentelemetry-jaeger-kafka:5
-    depends_on:
-      - zookeeper
-      - kafka
-      - jaeger
-    environment:
-      ApacheKafka__Topic: topic-contagem
-      ApacheKafka__Host: kafka:29092
-      ApacheKafka__WaitingTimeInitialization: 8000
-      Jaeger__AgentHost: jaeger
-      Jaeger__AgentPort: 6831
-    ports:
-      - "6150:80"
