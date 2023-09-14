@@ -28,19 +28,19 @@ public class Worker : BackgroundService
         if (int.TryParse(configuration["ApacheKafka:WaitingTimeInitialization"],
                 out int waitingTimeInitialization) && waitingTimeInitialization > 0)
         {
-            // Tempo a ser aguardado para garantir que a instância do Kafka esteja disponível
+            // Tempo a ser aguardado para garantir que a instï¿½ncia do Kafka esteja disponï¿½vel
             // em testes com containers
             logger.LogInformation(
                 $"Aguardando {waitingTimeInitialization} milissegundos para iniciar a aplicacao...");
             Task.Delay(waitingTimeInitialization).Wait();
         }
 
-        // Força a comunicação com o Apache Kafka para criar o tópico
+        // Forca a comunicacaoo com o Apache Kafka para criar o topico
         logger.LogInformation(
             $"Verificando a necessida de criacao do topico {configuration["ApacheKafka:Topic"]}...");
         if (KafkaExtensions.CreateTopicForTestsIfNotExists(configuration))
             logger.LogInformation(
-                $"Criado o tópico {configuration["ApacheKafka:Topic"]} com 10 partições para testes...");
+                $"Criado o topico {configuration["ApacheKafka:Topic"]} com 10 particoes para testes...");
 
         _logger = logger;
         _configuration = configuration;
@@ -52,7 +52,7 @@ public class Worker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        // Solução que serviu de base para a implementação deste exemplo:
+        // Solucao que serviu de base para a implementacao deste exemplo:
         // https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/examples/MicroserviceExample
 
         _logger.LogInformation($"Topic = {_topic}");
@@ -111,7 +111,7 @@ public class Worker : BackgroundService
         }
         catch
         {
-            _logger.LogError("Dados inválidos para o Resultado");
+            _logger.LogError("Dados invalidos para o Resultado");
             resultado = null;
         }
 
@@ -139,7 +139,7 @@ public class Worker : BackgroundService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Falha durante a extração do trace context: {ex.Message}");
+            _logger.LogError(ex, $"Falha durante a extracao do trace context: {ex.Message}");
         }
 
         return Enumerable.Empty<string>();
